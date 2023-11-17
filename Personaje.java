@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Personaje {
     protected String Nombre;
     protected int hp;
@@ -79,7 +81,4 @@ public class Personaje {
     }
 
     //
-    public void prueba() {
-
-    }
 }
