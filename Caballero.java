@@ -2,60 +2,49 @@ import java.util.Scanner;
 
 public class Caballero extends Personaje {
 
-    private int combo;
-
-    public Caballero(String nombre, int hp, int atk, int def, int des) {
-        super(nombre, hp, atk, def, des);
+    protected int combo;
+    //
+    public Caballero(){
+        
+    }
+    public Caballero(String nombre, int hp, int atk, int def) {
+        super(nombre, hp, atk, def);
         this.combo = combo;
     }
-
+    //
+   public int getCombo() {
+        return combo;
+    }
+    public void setCombo(int combo) {
+        this.combo = combo;
+    }
     //
     public void mostrar() {
         System.out.println("Nombre: " + this.Nombre);
         System.out.println("Salud: " + this.hp);
-        System.out.println("Ataque: " + this.atk);
+        System.out.println("Ataque: " + this.getAtk());
         System.out.println("Defensa: " + this.def);
-        System.out.println("Destreza: " + this.des);
-    }
-
-    public int suerte() {
-        int result = (int) (Math.random() * (20 - 1 + 1) + 1);
-        return result;
-    }
-
-    public void Luchar(Mago mago) {
-        while (this.hp>0 && mago.hp>0) {
-            this.Skill(mago);
-            this.hp = this.hp - (mago.atk - this.def);
-            mago.hp = mago.hp - (this.atk - mago.def);
-            this.mostrar();
-            mago.mostarMago();
-            this.atk = 100;
-            this.def = 90;
-            this.des = 60;
-            
-        }
     }
 
     public void armaduraCaballero() {
         Scanner sc = new Scanner(System.in);
         int opcionArmadura;
-        System.out.println(
-                "Armadura para Caballero:\n1. armadura de cuero (+1 de defensa).\n2. armadura de placas (+2 de defensa).\n0. para salir.");
-        opcionArmadura = sc.nextInt();
+        System.out.println( "Armadura para Caballero:\n1. armadura de cuero (+1 de defensa).\n2. armadura de placas (+2 de defensa).\n0. para salir.");
+        opcionArmadura=sc.nextInt();
         switch (opcionArmadura) {
             case 1:
                 System.out.println("elegiste armadura de cuero.");
-                this.def += 1;
+                this.armaduraCuero();
                 break;
             case 2:
                 System.out.println("elegiste armadura de placas.");
-                this.def += 2;
+                this.armaduraPlacas();
                 break;
             default:
                 System.out.println("opcion no valida.");
                 break;
         }
+        this.mostrar();
     }
 
     public void armaCaballero() {
@@ -66,11 +55,11 @@ public class Caballero extends Personaje {
         switch (opcionArma) {
             case 1:
                 System.out.println("elegiste la espada.");
-                this.atk += 1;
+                this.espada();
                 break;
             case 2:
                 System.out.println("elegiste la lanza.");
-                this.atk += 2;
+                this.lanza();
                 break;
             default:
                 System.out.println("opcion no valida.");
@@ -78,7 +67,7 @@ public class Caballero extends Personaje {
         }
     }
 
-    public void Skill(Mago mag) {
+    public void Skill() {
         Scanner sc = new Scanner(System.in);
         int opcSkill;
         System.out.println("Skills");
@@ -97,7 +86,7 @@ public class Caballero extends Personaje {
                         break;
                     case 2:
                         System.out.println("Intimidar.");
-                        this.intimidar(mag);
+                        this.intimidar();
                         break;
                     default:
                         break;
@@ -123,18 +112,33 @@ public class Caballero extends Personaje {
                 break;
         }
     }
-
+// HABILIDADES
     public void furiaGuerrera() {
-        this.atk += 1;
-        this.des += 1;
+         this.setAtk(this.atk+ 1);
     }
-    public void intimidar(Mago mago) {
-        mago.def -= 2;
+    public int intimidar() {
+       return -1;
+        //probar
     }
-    public void ataquePoderoso(){
-        this.atk *=2;
+    public int ataquePoderoso(){
+        return this.atk = +10;
     }
-    public void escudoProtector(){
-        this.def *=2;
+    public int escudoProtector(){
+        return this.def = +12;
     }
+// ARMAS
+    public int espada(){
+        return this.atk = +1;
+    }
+    public int lanza(){
+        return this.atk = +2;
+    }
+//ARMADURAS
+    public int armaduraCuero(){
+        return this.def = +1;
+    }
+    public int armaduraPlacas(){
+        return this.def = +2;
+    }
+
 }

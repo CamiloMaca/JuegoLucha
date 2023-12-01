@@ -1,84 +1,187 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Personaje {
     protected String Nombre;
     protected int hp;
+    protected int atkFisico;
+    protected int atkElemental;
     protected int atk;
+    protected int defFisico;
+    protected int defElemental;
     protected int def;
-    protected int des;
-    protected int arma;
-
     //
     public Personaje() {
-    
     }
-
-    
-
-    public Personaje(String nombre) {
-        Nombre = nombre;
-    }
-
-
-
-    public Personaje(String nombre, int hp, int atk, int def, int des) {
+    public Personaje(String nombre, int hp, int atk, int def) {
         Nombre = nombre;
         this.hp = hp;
-        this.atk = atk;
-        this.def = def;
-        this.des = des;
-        this.arma = arma;
-
+        this.atk=atk;
+        this.def=def;
     }
-
-    //
     public String getNombre() {
         return Nombre;
     }
-
     public void setNombre(String nombre) {
         Nombre = nombre;
     }
-
     public int getHp() {
         return hp;
     }
-
     public void setHp(int hp) {
         this.hp = hp;
     }
-
+    public int getAtkFisico() {
+        return atkFisico;
+    }
+    public void setAtkFisico(int atkFisico) {
+        this.atkFisico = atkFisico;
+    }
+    public int getAtkElemental() {
+        return atkElemental;
+    }
+    public void setAtkElemental(int atkElemental) {
+        this.atkElemental = atkElemental;
+    }
     public int getAtk() {
         return atk;
     }
-
     public void setAtk(int atk) {
         this.atk = atk;
     }
-
+    public int getDefFisico() {
+        return defFisico;
+    }
+    public void setDefFisico(int defFisico) {
+        this.defFisico = defFisico;
+    }
+    public int getDefElemental() {
+        return defElemental;
+    }
+    public void setDefElemental(int defElemental) {
+        this.defElemental = defElemental;
+    }
     public int getDef() {
         return def;
     }
-
     public void setDef(int def) {
         this.def = def;
     }
-
-    public int getDes() {
-        return des;
-    }
-
-    public void setDes(int des) {
-        this.des = des;
-    }
-
-    public int getArma() {
-        return arma;
-    }
-
-    public void setArma(int arma) {
-        this.arma = arma;
-    }
-
     //
+    public void P(Caballero caballero){
+        System.out.println("atk: "+caballero.atk);
+        caballero.atk = caballero.atk-caballero.ataquePoderoso();
+        System.out.println("atk modificado: "+caballero.atk);
+    }
+    public void duelo(Caballero caballero, Mago mago, Barbaro barbaro){
+        Scanner scanner = new Scanner(System.in);
+        int opcClase;
+        System.out.println("1.CABALLERO vs MAGO\n2.MAGO vs BARBARO.\n3.BARBARO vs CABALLERO.");
+        opcClase=scanner.nextInt();
+        switch (opcClase) {
+            case 1:
+                System.out.println("BATALLA * CABALLERO vs MAGO * ESTA POR COMENZAR.");
+                System.out.println("EQUIPA A TU CABALLERO");
+                caballero.armaCaballero();
+                caballero.armaduraCaballero();
+                System.out.println("EQUIPA A TU MAGO");
+                mago.armaMago();
+                mago.armaduraMago();
+                while (caballero.getHp()>0 && mago.getHp()>0) {
+                    Random randomCM = new Random();
+                    int dadoCaballero= randomCM.nextInt(21);
+                    System.out.println("dado caballero: "+dadoCaballero);
+                    int dadoMago= randomCM.nextInt(21);
+                    System.out.println("dado mago: "+dadoMago);
+                    if (dadoCaballero>dadoMago) {
+                        caballero.combo= +1;
+                        caballero.setAtk(caballero.atk+caballero.combo);
+                        System.out.println("ataca el caballero."+caballero.getNombre());
+                        caballero.Skill();
+                        mago.hp=mago.hp-(caballero.atk-mago.def);
+                        mago.mostarMago();
+                    }
+                    else if (dadoMago>dadoCaballero) {
+                        caballero.combo=0;
+                        System.out.println("ataca el mago");
+                        mago.habilidadesMago();
+                        caballero.hp=caballero.hp-(mago.atk-caballero.def);
+                        caballero.mostrar();
+                    }
+                    if (caballero.getAtk()>this.atk) {
+                        
+                    }
+                    //reiniciar los atributos para no acumular los buff de ambos 
+                }
+                break;
+            case 2:
+                System.out.println("BATALLA * MAGO vs BARBARO * ESTA POR COMENZAR.");
+                System.out.println("EQUIPA A TU MAGO.");
+                mago.armaMago();
+                mago.armaduraMago();
+                System.out.println("EQUIPA A TU BARBARO");
+                barbaro.armaBarbaro();
+                barbaro.armaduraBarbaro();
+                while (mago.getHp()>0 && barbaro.getHp()>0) {
+                    Random randomMB = new Random();
+                    int dadoMago=randomMB.nextInt(21);
+                    System.out.println("dado mago: "+dadoMago);
+                    int dadoBarbaro=randomMB.nextInt(21);
+                    System.out.println("dado barbaro: "+dadoBarbaro);
+                    if (dadoBarbaro>dadoMago) {
+                        barbaro.combo= +1;
+                        barbaro.setAtk(barbaro.atk+barbaro.combo);
+                        System.out.println("ATACA EL BARBARO: "+barbaro.getNombre());
+                        //barbaro.Skill
+                        mago.hp=mago.hp-(barbaro.atk-mago.def);
+                        mago.mostarMago();
+                    }
+                    else if (dadoMago>dadoBarbaro) {
+                        System.out.println("ATACA EL MAGO.");
+                        mago.habilidadesMago();
+                        barbaro.hp=barbaro.hp-(mago.atk-barbaro.def);
+                        barbaro.mostrarBarbaro();
+                    }
+                }
+            break;
+            case 3:
+            System.out.println("BATALLA * BARBARO vs CABALLERO * ESTA POR COMENZAR.");
+            System.out.println("EQUIPA A TU BARBARO");
+            barbaro.armaBarbaro();
+            barbaro.armaduraBarbaro();
+            System.out.println("EQUIPA A TU CABALLERO");
+            caballero.armaCaballero();
+            caballero.armaduraCaballero();
+
+            while (barbaro.getHp() > 0 && caballero.getHp() > 0) {
+                Random randomBC = new Random();
+                int dadoBarbaro = randomBC.nextInt(21);
+                System.out.println("dado barbaro: " + dadoBarbaro);
+                int dadoCaballero = randomBC.nextInt(21);
+                System.out.println("dado caballero: " + dadoCaballero);
+
+                if (dadoBarbaro > dadoCaballero) {
+                    barbaro.combo += 1;
+                    barbaro.setAtk(barbaro.atk + barbaro.combo);
+                    System.out.println("ATACA EL BARBARO: " + barbaro.getNombre());
+                    //barbaro.Skill
+                    caballero.hp = caballero.hp - (barbaro.atk - caballero.def);
+                    caballero.mostrar();
+                } else if (dadoCaballero > dadoBarbaro) {
+                    caballero.combo = 0;
+                    System.out.println("ATACA EL CABALLERO: " + caballero.getNombre());
+                    caballero.Skill(); 
+                    barbaro.hp = barbaro.hp - (caballero.atk - barbaro.def);
+                    barbaro.mostrarBarbaro();
+                }
+            }
+            break;
+            default:
+                System.out.println("OPCION INVALIDA");
+                break;
+        }
+    }
+    
 }
+
+    
