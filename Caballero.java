@@ -67,7 +67,7 @@ public class Caballero extends Personaje {
         }
     }
 
-    public void Skill() {
+    public void Skill(Mago mago ,Barbaro barbaro) {
         Scanner sc = new Scanner(System.in);
         int opcSkill;
         System.out.println("Skills");
@@ -86,7 +86,7 @@ public class Caballero extends Personaje {
                         break;
                     case 2:
                         System.out.println("Intimidar.");
-                        this.intimidar();
+                        this.intimidar(mago);
                         break;
                     default:
                         break;
@@ -116,12 +116,13 @@ public class Caballero extends Personaje {
     public void furiaGuerrera() {
          this.setAtk(this.atk+ 1);
     }
-    public int intimidar() {
-       return -1;
+    public void intimidar(Mago mago) {
+        mago.setDef(mago.def-2);
+        this.setAtk(this.atk + 10);
         //probar
     }
-    public int ataquePoderoso(){
-        return this.atk = +10;
+    public void ataquePoderoso(){
+        this.atk = +10;
     }
     public int escudoProtector(){
         return this.def = +12;
