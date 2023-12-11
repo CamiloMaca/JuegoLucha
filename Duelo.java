@@ -90,7 +90,7 @@ public class Duelo {
                     barbaro.combo += 1;
                     barbaro.setAtk(barbaro.atk + barbaro.combo);
                     System.out.println("ATACA EL BARBARO: " + barbaro.getNombre());
-                    //barbaro.Skill
+                    barbaro.skillBarbaro(caballero, mago);
                     caballero.hp = caballero.hp - (barbaro.atk - caballero.def);
                     caballero.mostrar();
                 } else if (dadoCaballero > dadoBarbaro) {
